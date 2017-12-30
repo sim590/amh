@@ -6,8 +6,11 @@ multi-host capabilities such as
 
 - spawning arbitrary programs on multiple hosts;
 - starting [synergy][] on multiple hosts given all possible host combinations;
-  ![Synergy menu](/misc/synergy.gif)
+
+    ![Synergy menu](/misc/synergy.gif)
 - starting [mpv][] on a remote host;
+
+    ![Mpv menu](/misc/mpv.gif)
 
 ## Contributions
 
