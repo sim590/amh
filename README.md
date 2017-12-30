@@ -3,8 +3,10 @@
 This is a small lua module for the Awesome Window Manager. It provides
 multi-host capabilities such as
 
+
 - spawning arbitrary programs on multiple hosts;
 - starting [synergy][] on multiple hosts given all possible host combinations;
+  ![Synergy menu](/misc/synergy.gif)
 - starting [mpv][] on a remote host;
 
 ## Contributions
