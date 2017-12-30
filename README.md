@@ -8,7 +8,8 @@ multi-host capabilities such as
 - starting [synergy][] on multiple hosts given all possible host combinations;
 
     ![Synergy menu](/misc/synergy.gif)
-- starting [mpv][] on a remote host;
+- starting [mpv][] on a remote host (passing the URL from the clipboard for
+  e.g.).
 
     ![Mpv menu](/misc/mpv.gif)
 
