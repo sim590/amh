@@ -16,13 +16,8 @@
 -- You should have received a copy of the GNU General Public License
 -- along with amh. If not, see <http://www.gnu.org/licenses/>.
 
--- awesome modules
-local awful = require("awful")
-
 -- local modules
 local util = require("amh.util")
-
-local NONE_CHOICE = "None"
 
 -- Starts syenrgyc on synergyc_host and synergys on the this machine. This
 -- requires the remote host permits ssh acces to $USER with ssh key.
@@ -35,26 +30,14 @@ local function synergy(host)
 end
 
 local function menu(hosts)
-    local m = {}
-    local h_combinations = util.powerset(hosts)
-    for _,c in pairs(awful.util.table.join({{ NONE_CHOICE }}, h_combinations)) do
-        if #c > 0 then
-            local cbs = {}
-            for _,h in pairs(c) do
-                if h ~= NONE_CHOICE then
-                    cbs[#cbs + 1] = function() synergy(h) end
-                end
-            end
-            for _,h in pairs(hosts) do
-                if not awful.util.table.hasitem(c, h) and h ~= NONE_CHOICE then
-                    cbs[#cbs + 1] = function() util.remote_spawn(h, "pkill -u $USER -x synergyc", nil, false) end
-                end
-            end
-
-            m[#m + 1] = { "Synergy: " .. table.concat(c, " + "), cbs }
-        end
-    end
-    return m
+    return util.menu({
+        hosts       = hosts,
+        name        = "Synergy",
+        selected_cb = function(host) synergy(host) end,
+        rejected_cb = function(host) util.remote_spawn(host, "pkill -u $USER -x synergyc", nil, false) end,
+        extra_choices = { { "None", nil } },
+        combination = "powerset"
+    })
 end
 
 return {

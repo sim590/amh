@@ -29,21 +29,19 @@ local function mpv(host, url)
 end
 
 local function menu(hosts, url)
-    local m = {}
-    for _,h in pairs(awful.util.table.join({ "localhost" }, hosts)) do
-        if h == "localhost" then
-            m[#m + 1] = {
-                "Mpv: " .. h, {
-                    function()
-                        awful.spawn.easy_async(mpv_cmd .. " '" ..  url .. "'", util.async_dummy_cb)
-                    end
-                }
+    return util.menu({
+        hosts       = hosts,
+        name        = "Mpv",
+        selected_cb = function(host) mpv(host, url) end,
+        rejected_cb = nil,
+        extra_choices = {
+            {
+                "localhost", function (host)
+                    awful.spawn.easy_async(mpv_cmd .. " '" ..  url .. "'", util.async_dummy_cb)
+                end
             }
-        else
-            m[#m + 1] = { "Mpv: " .. h, { function() mpv(h, url) end } }
-        end
-    end
-    return m
+        }
+    })
 end
 
 local _mpv = {

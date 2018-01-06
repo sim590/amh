@@ -18,7 +18,7 @@
 -- You should have received a copy of the GNU General Public License
 -- along with amh. If not, see <http://www.gnu.org/licenses/>.
 
-
+-- awesome modules
 local naughty = require("naughty")
 
 local state = { cid = nil }
