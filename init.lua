@@ -40,14 +40,22 @@ local function mpv_multi_host_menu(url)
     util.menu_iterator.iterate(mpv.menu(amh.hosts, url), 4, amh.mpv_icon)
 end
 
+-- locks the screen on a selected host in the `hosts` array.
+local function i3lock_fancy_multi_host_menu()
+    local i3lock_fancy = require("amh.exec.i3lock-fancy")
+    util.menu_iterator.iterate(i3lock_fancy.menu(amh.hosts), 4, amh.i3lock_fancy_icon)
+end
+
 -- export local members
-amh.util         = util
-amh.hosts        = {}
-amh.spawn        = spawn
-amh.synergy      = synergy_on_all_hosts
-amh.synergy_icon = nil
-amh.mpv          = mpv_multi_host_menu
-amh.mpv_icon     = "/usr/share/icons/hicolor/32x32/apps/mpv.png"
+amh.util              = util
+amh.hosts             = {}
+amh.spawn             = spawn
+amh.synergy           = synergy_on_all_hosts
+amh.synergy_icon      = nil
+amh.mpv               = mpv_multi_host_menu
+amh.mpv_icon          = "/usr/share/icons/hicolor/32x32/apps/mpv.png"
+amh.i3lock_fancy      = i3lock_fancy_multi_host_menu
+amh.i3lock_fancy_icon = nil
 
 return amh
 
