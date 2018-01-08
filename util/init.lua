@@ -107,7 +107,8 @@ local function remote_spawn(host, cmd, cb, verbose)
     awful.spawn.easy_async("avahi-resolve-host-name -4 " .. host,
         function (stdout, stderr, exitreason, exitcode)
             -- Invalid hostname
-            if exitcode ~= 0 and verbose then
+            local host_ip = stdout and stdout:split('\t')[2]:gsub('\n', '') or ''
+            if host_ip == '' and verbose then
                 naughty.notify({
                     preset = naughty.config.presets.critical,
                     title = remotespawn_label,
@@ -116,7 +117,6 @@ local function remote_spawn(host, cmd, cb, verbose)
                 return
             end
 
-            local host_ip = stdout:split('\t')[2]:gsub('\n', '') or ''
             awful.spawn.easy_async('ssh -o StrictHostKeyChecking=no ' .. host_ip
                                     .. ' "env LANG=' .. util.LANG .. ' DISPLAY=:0 bash -c \'' .. cmd .. '\'"',
                 function(stdout, stderr, exitreason, exitcode)
