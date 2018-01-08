@@ -118,7 +118,7 @@ local function remote_spawn(host, cmd, cb, verbose)
 
             local host_ip = stdout:split('\t')[2]:gsub('\n', '') or ''
             awful.spawn.easy_async('ssh -o StrictHostKeyChecking=no ' .. host_ip
-                                    .. ' "env LANG=' .. util.LANG .. ' DISPLAY=:0 ' .. cmd .. '"',
+                                    .. ' "env LANG=' .. util.LANG .. ' DISPLAY=:0 bash -c \'' .. cmd .. '\'"',
                 function(stdout, stderr, exitreason, exitcode)
                     if exitcode == 0 and verbose then
                         naughty.notify({
