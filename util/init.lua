@@ -107,13 +107,16 @@ local function remote_spawn(host, cmd, cb, verbose)
     awful.spawn.easy_async("avahi-resolve-host-name -4 " .. host,
         function (stdout, stderr, exitreason, exitcode)
             -- Invalid hostname
-            local host_ip = stdout and stdout:split('\t')[2]:gsub('\n', '') or ''
-            if host_ip == '' and verbose then
-                naughty.notify({
-                    preset = naughty.config.presets.critical,
-                    title = remotespawn_label,
-                    text = "Couldn't resolve host '" .. host .. "'"
-                })
+            local host_ip = stdout:split('\t')[2]
+            host_ip = host_ip and host_ip:gsub('\n', '') or ''
+            if not host_ip or host_ip == '' then
+                if verbose then
+                    naughty.notify({
+                        preset = naughty.config.presets.critical,
+                        title = remotespawn_label,
+                        text = "Couldn't resolve host '" .. host .. "'"
+                    })
+                end
                 return
             end
 
@@ -168,7 +171,6 @@ local function menu(args)
     local rejected_cb = args.rejected_cb
     local extra_choices = args.extra_choices or {}
 
-    local NONE_CHOICE = "None"
     local h_combinations = args.combination == "powerset" and powerset(hosts) or singleton_subsets(hosts)
     for _,c in pairs(extra_choices) do
         h_combinations = awful.util.table.join(h_combinations, {{c[1]}})
