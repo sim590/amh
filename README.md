@@ -13,6 +13,8 @@ multi-host capabilities such as
 
     ![Mpv menu](/misc/mpv.gif)
 
+See the wiki for concrete usage examples.
+
 ## Contributions
 
 All contributions are welcome! I'm sure there are multiple ideas of programs
