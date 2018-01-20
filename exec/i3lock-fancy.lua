@@ -25,7 +25,7 @@ local util = require("amh.util")
 local lock_cmd = 'i3lock-fancy -- scrot -z'
 
 local function lock(host, url)
-    util.remote_spawn(host, "bash -c \'pgrep -u $USER -x i3lock || " .. lock_cmd .. "\'", nil, false)
+    util.remote_spawn(host, "pgrep -u $USER -x i3lock || " .. lock_cmd, nil, false)
 end
 
 local function menu(hosts)

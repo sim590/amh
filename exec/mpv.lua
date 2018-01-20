@@ -25,7 +25,7 @@ local util = require("amh.util")
 local mpv_cmd = 'mpv --force-window --no-terminal --keep-open=yes --ytdl'
 
 local function mpv(host, url)
-    util.remote_spawn(host, mpv_cmd .. " '" ..  url .. "'")
+    util.remote_spawn(host, mpv_cmd .. " " ..  url)
 end
 
 local function menu(hosts, url)
