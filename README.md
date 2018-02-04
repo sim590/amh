@@ -15,6 +15,9 @@ multi-host capabilities such as
 
 See the wiki for concrete usage examples.
 
+[synergy]: https://symless.com/synergy
+[mpv]: https://mpv.io/
+
 ## Contributions
 
 All contributions are welcome! I'm sure there are multiple ideas of programs
@@ -22,15 +25,15 @@ that could fit in.
 
 ## Dependencies
 
-- [penlight][]
+- [lua-socket][];
+- [penlight][];
 - **openssh-client, openssh-server**: commands are started on hosts through the SSH
   protocol. It's assumed that you have your SSH keys setup on each hosts you
   aim to use with amh.
 - **avahi-utils**: hosts IPv4 ip addresses are dynamically resolved using avahi
   tools such as `avahi-resolve-host-name`.
 
-[synergy]: https://symless.com/synergy
-[mpv]: https://mpv.io/
+[lua-socket]: http://w3.impa.br/~diego/software/luasocket/
 [penlight]: https://github.com/stevedonovan/Penlight
 
 ## Author
