@@ -21,6 +21,9 @@
 -- awesome modules
 local naughty = require("naughty")
 
+-- local modules
+local unpack = require("amh.util.unpack") -- compatibility with Lua 5.1
+
 local state = { cid = nil }
 
 local function naughty_destroy_callback(reason)
