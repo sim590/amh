@@ -20,6 +20,9 @@
 local awful   = require("awful")
 local naughty = require("naughty")
 
+-- local modules
+local unpack = require("amh.util.unpack") -- compatibility with Lua 5.1
+
 -- other modules
 require("pl.stringx").import()
 
