@@ -30,7 +30,7 @@ end
 
 local function menu(hosts)
     return util.menu({
-        hosts       = hosts,
+        choices     = hosts,
         name        = "i3lock-fancy",
         selected_cb = function(host) lock(host) end,
         rejected_cb = nil,

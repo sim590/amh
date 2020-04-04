@@ -19,6 +19,7 @@
 -- awesome modules
 local awful   = require("awful")
 local naughty = require("naughty")
+local lain    = require("lain")
 
 -- local modules
 local unpack = require("amh.util.unpack") -- compatibility with Lua 5.1
@@ -51,7 +52,7 @@ local function prg_name(cmd)
 end
 
 -- Wrapper around pgrep program. Tells whether the called program from the
--- command ̀cmd` is running or not
+-- command  ̀cmd` is running or not
 local function pgrep(cmd)
     local prg = prg_name(cmd)
     local ret = os.execute("pgrep -u $USER -x " .. prg .. " > /dev/null")
@@ -148,70 +149,6 @@ local function remote_spawn(host, cmd, cb, verbose)
         end)
 end
 
--- Generates a menu compatible with the menu_iterator.iterate function argument
--- and suitable for the following cases:
--- * all possible choices are the hosts themselves
--- * all possible choices are all the possible subsets of the set of hosts (the
---   powerset)
---
--- The following describes the function arguments:
--- * args: an array containing the following members:
---   * hosts:         the list of hosts from which to generate the menu
---   * name:          the displayed name of the menu (in the form "name: choices")
---   * selected_cb:   the callback to execute for each selected host. Takes the
---                    host as a string argument.
---   * rejected_cb:   the callback to execute for each rejected host (in the set
---                    of possible hosts, but not selected). Takes the host as a
---                    string argument.
---   * extra_choices: an array of pairs { choice_text, cb } for extra choices to
---                    be added to the menu.
---   * combination:   the combination of host to generate. Possible choices are
---                    "powerset" and "single" (the default).
-local function menu(args)
-    local hosts       = assert(args.hosts or args[1])
-    local name        = assert(args.name or args[2])
-    local selected_cb = args.selected_cb
-    local rejected_cb = args.rejected_cb
-    local extra_choices = args.extra_choices or {}
-
-    local h_combinations = args.combination == "powerset" and powerset(hosts) or singleton_subsets(hosts)
-    for _,c in pairs(extra_choices) do
-        h_combinations = awful.util.table.join(h_combinations, {{c[1]}})
-    end
-
-    local m = {}
-    for _,c in pairs(h_combinations) do
-        if #c > 0 then
-            local cbs = {}
-            -- selected hosts
-            for _,h in pairs(c) do
-                if awful.util.table.hasitem(hosts, h) then
-                    cbs[#cbs + 1] = selected_cb and function() selected_cb(h) end or nil
-                end
-            end
-
-            -- rejected hosts
-            for _,h in pairs(hosts) do
-                if not awful.util.table.hasitem(c, h) and awful.util.table.hasitem(hosts, h) then
-                    cbs[#cbs + 1] = rejected_cb and function() rejected_cb(h) end or nil
-                end
-            end
-
-            -- add user extra choices (like the choice "None" for e.g.)
-            -- local i = awful.util.table.hasitem(extra_choices, c[1])
-            for _,x in pairs(extra_choices) do
-                if x[1] == c[1] then
-                    cbs[#cbs + 1] = x[2]
-                end
-            end
-
-            m[#m + 1] = { name .. ": " .. table.concat(c, " + "), cbs }
-        end
-    end
-
-    return m
-end
-
 util.LANG              = "en_US.UTF-8"
 util.async_dummy_cb    = async_dummy_cb
 util.singleton_subsets = singleton_subsets
@@ -219,8 +156,8 @@ util.powerset          = powerset
 util.run_once          = run_once
 util.myip              = myip
 util.remote_spawn      = remote_spawn
-util.menu              = menu
-util.menu_iterator     = require("amh.util.menu_iterator")
+util.menu              = lain.util.menu_iterator.menu
+util.menu_iterator     = lain.util.menu_iterator
 
 return util
 

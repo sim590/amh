@@ -30,7 +30,7 @@ end
 
 local function menu(hosts, url)
     return util.menu({
-        hosts       = hosts,
+        choices     = hosts,
         name        = "Mpv",
         selected_cb = function(host) mpv(host, url) end,
         rejected_cb = nil,
