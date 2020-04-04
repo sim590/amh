@@ -31,7 +31,7 @@ end
 
 local function menu(hosts)
     return util.menu({
-        hosts       = hosts,
+        choices     = hosts,
         name        = "Synergy",
         selected_cb = function(host) synergy(host) end,
         rejected_cb = function(host) util.remote_spawn(host, "pkill -u $USER -x synergyc", nil, false) end,
