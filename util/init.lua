@@ -93,6 +93,11 @@ local function myip()
     return ip
 end
 
+local function remote_kill_and_run(host, cmd, cb)
+    local p = prg_name(cmd)
+    util.remote_spawn(host, 'pkill -u $USER -x' .. p .. ' ; ' .. cmd, cb)
+end
+
 -- TODO: if host is IPv4 address, don't try to resolve it
 -- Runs a command on a remote host. The host is resolved to IPv4 address, then
 -- the command is run through SSH protocol.
@@ -149,15 +154,16 @@ local function remote_spawn(host, cmd, cb, verbose)
         end)
 end
 
-util.LANG              = "en_US.UTF-8"
-util.async_dummy_cb    = async_dummy_cb
-util.singleton_subsets = singleton_subsets
-util.powerset          = powerset
-util.run_once          = run_once
-util.myip              = myip
-util.remote_spawn      = remote_spawn
-util.menu              = lain.util.menu_iterator.menu
-util.menu_iterator     = lain.util.menu_iterator
+util.LANG                = "en_US.UTF-8"
+util.async_dummy_cb      = async_dummy_cb
+util.singleton_subsets   = singleton_subsets
+util.powerset            = powerset
+util.run_once            = run_once
+util.myip                = myip
+util.remote_spawn        = remote_spawn
+util.remote_kill_and_run = remote_kill_and_run
+util.menu                = lain.util.menu_iterator.menu
+util.menu_iterator       = lain.util.menu_iterator
 
 return util
 

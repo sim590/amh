@@ -34,6 +34,12 @@ local function synergy_on_all_hosts()
     util.menu_iterator.iterate(synergy.menu(amh.hosts), 4, amh.synergy_icon)
 end
 
+-- Starts barrier on a selected host in the `hosts` array.
+local function barrier_on_all_hosts()
+    local barrier = require("amh.exec.barrier")
+    util.menu_iterator.iterate(barrier.menu(amh.hosts), 4, amh.barrier_icon)
+end
+
 -- starts mpv to play an url on a selected host in the `hosts` array.
 local function mpv_multi_host_menu(url)
     local mpv = require("amh.exec.mpv")
@@ -52,6 +58,8 @@ amh.hosts             = {}
 amh.spawn             = spawn
 amh.synergy           = synergy_on_all_hosts
 amh.synergy_icon      = nil
+amh.barrier           = barrier_on_all_hosts
+amh.barrier_icon      = nil
 amh.mpv               = mpv_multi_host_menu
 amh.mpv_icon          = "/usr/share/icons/hicolor/32x32/apps/mpv.png"
 amh.i3lock_fancy      = i3lock_fancy_multi_host_menu

@@ -19,12 +19,12 @@
 -- local modules
 local util = require("amh.util")
 
--- Starts syenrgyc on host and synergys on the this machine. This requires the
+-- Starts barrierc on host and barriers on the this machine. This requires the
 -- remote host permits ssh acces to $USER with ssh key.
-local function synergy(host)
-    util.remote_kill_and_run(host, "synergyc " .. util.myip(),
+local function barrier(host)
+    util.remote_kill_and_run(host, "barrierc " .. util.myip(),
         function ()
-            util.run_once('synergys')
+            util.run_once('barriers')
         end
     )
 end
@@ -32,9 +32,9 @@ end
 local function menu(hosts)
     return util.menu({
         choices     = hosts,
-        name        = "Synergy",
-        selected_cb = function(host) synergy(host) end,
-        rejected_cb = function(host) util.remote_spawn(host, "pkill -u $USER -x synergyc", nil, false) end,
+        name        = "barrier",
+        selected_cb = function(host) barrier(host) end,
+        rejected_cb = function(host) util.remote_spawn(host, "pkill -u $USER -x barrierc", nil, false) end,
         extra_choices = { { "None", nil } },
         combination = "powerset"
     })
@@ -42,7 +42,7 @@ end
 
 return {
     menu    = menu,
-    synergy = synergy
+    barrier = barrier
 }
 
 -- vim:set et sw=4 ts=4 tw=120:
