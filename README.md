@@ -32,10 +32,11 @@ that could fit in.
   aim to use with amh.
 - **avahi-utils**: hosts IPv4 ip addresses are dynamically resolved using avahi
   tools such as `avahi-resolve-host-name`.
-- **lain**: provides many useful functionalities and is most likely to be used
+- [lain][lain]: provides many useful functionalities and is most likely to be used
   by Awesome users. We use it for its menu iterator functionality which enables
   the user to iterate over choices interactively.
 
+[lain]: https://github.com/lcpz/lain/
 [lua-socket]: http://w3.impa.br/~diego/software/luasocket/
 [penlight]: https://github.com/stevedonovan/Penlight
 
