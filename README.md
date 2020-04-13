@@ -5,7 +5,8 @@ multi-host capabilities such as
 
 
 - spawning arbitrary programs on multiple hosts;
-- starting [synergy][] on multiple hosts given all possible host combinations;
+- starting [synergy][] (or [barrier][] a synergy fork) on multiple hosts given
+  all possible host combinations;
 
     ![Synergy menu](/misc/synergy.gif)
 - starting [mpv][] on a remote host (passing the URL from the clipboard for
@@ -15,6 +16,7 @@ multi-host capabilities such as
 
 See the wiki for concrete usage examples.
 
+[barrier]: https://github.com/debauchee/barrier
 [synergy]: https://symless.com/synergy
 [mpv]: https://mpv.io/
 
